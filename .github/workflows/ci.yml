@@ -1,7 +1,7 @@
 # This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: ci-test
+name: pipeline
 
 on:
   push:
@@ -16,8 +16,8 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [12.x, 14.x, 16.x]
-        postgres-version: [9.6, 10.x, 11.x]
+        node-version: [16.x]
+        postgres-version: [14]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -31,7 +31,7 @@ jobs:
           cache: 'npm'
 
       - name: Start PostgreSQL ${{ matrix.postgres-version }}
-        uses: actions/setup-postgres@v1
+        uses: ankane/setup-postgres@v1
         with:
           version: ${{ matrix.postgres-version }}
           port: 5432
@@ -43,7 +43,7 @@ jobs:
           cleanup: true
 
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --frozen-lockfile
 
       - name: Build
         run: npm run build --if-present
