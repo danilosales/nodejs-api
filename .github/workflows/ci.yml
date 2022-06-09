@@ -34,13 +34,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js node:latest
-        run: npm install
         env:
           NODE_VERSION: latest
         uses: actions/setup-node@v3
         with:
           node-version: node:latest
-          cache: 'npm'
       - name: Install PostgreSQL client
           # ...
           - name: Setup database
