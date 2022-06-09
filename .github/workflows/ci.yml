@@ -29,7 +29,7 @@ jobs:
           cache: 'npm'
 
       - name: Use PostgreSQL
-      - uses: harmon758/postgresql-action@v1
+        uses: harmon758/postgresql-action@v1
         with:
           postgresql version: '11'
           postgresql db: 'cadastro_pessoas'
