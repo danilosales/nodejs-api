@@ -33,14 +33,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-
-      - name: Install PostgreSQL client
-          # ...
-          - name: Setup database
-          run: psql -h postgres -U postgres_user -c 'CREATE DATABASE "cadastro_pessoas";'
-          env:
-            POSTGRES_PASSWORD: postgres
-
       - name: Use Node.js node:latest
         run: npm install
         env:
@@ -49,6 +41,13 @@ jobs:
         with:
           node-version: node:latest
           cache: 'npm'
+
+      - name: Install PostgreSQL client
+          # ...
+          - name: Setup database
+          run: psql -h postgres -U postgres_user -c 'CREATE DATABASE "cadastro_pessoas";'
+          env:
+            POSTGRES_PASSWORD: postgres
 
       - name: Install dependencies
         run: npm ci --frozen-lockfile
