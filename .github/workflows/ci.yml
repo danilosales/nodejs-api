@@ -33,10 +33,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: Use Node.js node:latest
-        env:
-          NODE_VERSION: latest
-        uses: actions/setup-node@v3
       - name: Install PostgreSQL client
           # ...
           - name: Setup database
