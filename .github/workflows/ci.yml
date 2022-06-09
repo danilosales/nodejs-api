@@ -37,8 +37,6 @@ jobs:
         env:
           NODE_VERSION: latest
         uses: actions/setup-node@v3
-        with:
-          node-version: node:latest
       - name: Install PostgreSQL client
           # ...
           - name: Setup database
