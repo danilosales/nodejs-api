@@ -33,7 +33,6 @@ jobs:
       - name: Start PostgreSQL ${{ matrix.postgres-version }}
         uses: ankane/setup-postgres@v1
         env:
-          DB_DATABASE: 'postgres'
             DB_USER: 'postgres'
             DB_PASSWORD: 'postgres'
             DB_HOST: 'localhost'
