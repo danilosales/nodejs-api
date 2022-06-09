@@ -36,19 +36,6 @@ jobs:
           postgresql user: 'postgres'
           postgresql password: 'postgres'
 
-      - name: Start PostgreSQL ${{ matrix.postgres-version }}
-        uses: ankane/setup-postgres@v1
-        env:
-        with:
-          version: ${{ matrix.postgres-version }}
-          port: 5432
-          database: cadastro_pessoas
-          user: postgres
-          password: postgres
-          host: postgres
-          schema: public
-          cleanup: true
-
       - name: Install dependencies
         run: npm ci --frozen-lockfile
 
