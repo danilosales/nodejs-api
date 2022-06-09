@@ -13,41 +13,42 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+    container: node:latest
 
-    strategy:
-      matrix:
-        node-version: [16.x]
-        postgres-version: [14]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_DB: cadastro_pessoas
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_PORT: 5432
+          POSTGRES_USER: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
     steps:
       - uses: actions/checkout@v3
-      - run: git fetch --prune --unshallow
 
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Install PostgreSQL client
+          # ...
+          - name: Setup database
+          run: psql -h postgres -U postgres_user -c 'CREATE DATABASE "cadastro_pessoas";'
+          env:
+            POSTGRES_PASSWORD: postgres
+
+      - name: Use Node.js node:latest
+        run: npm install
+        env:
+          NODE_VERSION: latest
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: node:latest
           cache: 'npm'
-
-      - name: Start PostgreSQL ${{ matrix.postgres-version }}
-        uses: ankane/setup-postgres@v1
-        env:
-            DB_USER: 'postgres'
-            DB_PASSWORD: 'postgres'
-            DB_HOST: 'localhost'
-            DB_PORT: '5432'
-            DB_VERSION: ${{ matrix.postgres-version }}
-            DB_DATABASE: 'cadastro_pessoas'
-        with:
-          version: ${{ matrix.postgres-version }}
-          port: 5432
-          database: cadastro_pessoas
-          user: postgres
-          password: postgres
-          host: postgres
-          schema: public
-          cleanup: true
 
       - name: Install dependencies
         run: npm ci --frozen-lockfile
