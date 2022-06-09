@@ -41,19 +41,15 @@ jobs:
         with:
           node-version: node:latest
           cache: 'npm'
-
       - name: Install PostgreSQL client
           # ...
           - name: Setup database
           run: psql -h postgres -U postgres_user -c 'CREATE DATABASE "cadastro_pessoas";'
           env:
             POSTGRES_PASSWORD: postgres
-
       - name: Install dependencies
         run: npm ci --frozen-lockfile
-
       - name: Build
         run: npm run build --if-present
-
       - name: Run tests
         run: npm test
