@@ -8,7 +8,7 @@ env:
   AWS_REGION: us-east-1
   ECR_REPOSITORY: api-cadastro-pessoas
   ECS_SERVICE: service-cadastro-pessoas
-  ECS_CLUSTER: youtube-cluster
+  ECS_CLUSTER: cluster-cadastro-pessoasUpdate
   ECS_TASK_DEFINITION: aws-task-definition.json
   CONTAINER_NAME: cadastro-pessoas
 
