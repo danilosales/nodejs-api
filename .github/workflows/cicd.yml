@@ -29,12 +29,6 @@ jobs:
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
-        env:
-          DB_DATABASE: ${{ secrets.DB_DATABASE }}
-          DB_USER: ${{ secrets.DB_USER }}
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-          DB_HOST: ${{ secrets.DB_HOST }}
-          DB_PORT: ${{ secrets.DB_PORT }}
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
@@ -55,6 +49,21 @@ jobs:
 
       - name: Run tests
         run: npm test
+
+      - name: Create .env with Github Secrets and run script
+        run: |
+          touch .env
+          echo DB_DATABASE=$DB_DATABASE >> .env
+          echo DB_USER=$DB_USER >> .env
+          echo DB_PASSWORD=$DB_PASSWORD >> .env
+          echo DB_HOST=$DB_HOST >> .env
+          echo DB_PORT=$DB_PORT >> .env
+        env:
+          DB_DATABASE: ${{ secrets.DB_DATABASE }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_PORT: ${{ secrets.DB_PORT }}
 
   deploy:
     name: deploy
