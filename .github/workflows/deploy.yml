@@ -9,7 +9,7 @@ env:
   ECR_REPOSITORY: api-cadastro-pessoas
   ECS_SERVICE: service-cadastro-pessoas
   ECS_CLUSTER: youtube-cluster
-  ECS_TASK_DEFINITION: cadastro-pessoas
+  ECS_TASK_DEFINITION: cadastro-pessoas:2
   CONTAINER_NAME: cadastro-pessoas
 
 jobs:
