@@ -50,17 +50,4 @@ router.delete('/:id', function (req, res, next) {
       })
 })
 
-router.patch('/:id', function (req, res, next) {
-  db.User.patch({
-    name: req.body.name,
-    email: req.body.email
-  })
-      .then(user => {
-        res.status(200).json(user)
-      })
-      .catch(error => {
-        res.status(500).json(error)
-      })
-})
-
 module.exports = router
