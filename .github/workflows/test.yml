@@ -10,8 +10,8 @@ on:
     branches: [ "*" ]
 
 jobs:
-  build:
-    name: Build
+  test:
+    name: tests
     runs-on: ubuntu-latest
 
     strategy:

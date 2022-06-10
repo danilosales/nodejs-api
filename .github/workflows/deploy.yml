@@ -13,8 +13,8 @@ env:
   CONTAINER_NAME: cadastro-pessoas
 
 jobs:
-  build:
-    name: Build
+  deploy:
+    name: deploy
     runs-on: ubuntu-latest
 
     steps:
