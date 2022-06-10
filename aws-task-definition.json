@@ -31,13 +31,18 @@
       "dnsServers": null,
       "mountPoints": [],
       "workingDirectory": null,
-      "secrets": null,
+      "secrets": [
+        {
+          "valueFrom": "arn:aws:secretsmanager:us-east-1:077915966362:secret:api-cadastro-pessoas-variaveis-ambiente-z1aKgY",
+          "name": "env"
+        }
+      ],
       "dockerSecurityOptions": null,
       "memory": null,
       "memoryReservation": 128,
       "volumesFrom": [],
       "stopTimeout": null,
-      "image": "077915966362.dkr.ecr.us-east-1.amazonaws.com/api-cadastro-pessoas:d7c46d9ab3af2a4abf64e02169f29d7790710412",
+      "image": "077915966362.dkr.ecr.us-east-1.amazonaws.com/api-cadastro-pessoas:b667e3706dc24f9c87692047ddef6330d0e3bebf",
       "startTimeout": null,
       "firelensConfiguration": null,
       "dependsOn": null,
@@ -59,12 +64,12 @@
   ],
   "placementConstraints": [],
   "memory": "512",
-  "taskRoleArn": null,
+  "taskRoleArn": "arn:aws:iam::077915966362:role/ecsTaskExecutionRole",
   "compatibilities": [
     "EC2",
     "FARGATE"
   ],
-  "taskDefinitionArn": "arn:aws:ecs:us-east-1:077915966362:task-definition/cadastro-pessoas:2",
+  "taskDefinitionArn": "arn:aws:ecs:us-east-1:077915966362:task-definition/cadastro-pessoas:24",
   "family": "cadastro-pessoas",
   "requiresAttributes": [
     {
@@ -95,7 +100,19 @@
       "targetId": null,
       "targetType": null,
       "value": null,
+      "name": "ecs.capability.secrets.asm.environment-variables"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
       "name": "com.amazonaws.ecs.capability.docker-remote-api.1.21"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "com.amazonaws.ecs.capability.task-iam-role"
     },
     {
       "targetId": null,
@@ -121,8 +138,9 @@
     "FARGATE"
   ],
   "networkMode": "awsvpc",
+  "runtimePlatform": null,
   "cpu": "256",
-  "revision": 2,
+  "revision": 24,
   "status": "ACTIVE",
   "inferenceAccelerators": null,
   "proxyConfiguration": null,

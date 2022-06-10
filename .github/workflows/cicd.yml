@@ -60,15 +60,6 @@ jobs:
       - name: Go to the project root
         uses: actions/checkout@v3
 
-      - name: Create .env with Github Secrets and run script
-        run: |
-          touch .env
-          echo DB_DATABASE=${{ secrets.DB_DATABASE }} >> .env
-          echo DB_USER=${{ secrets.DB_USER }} >> .env
-          echo DB_PASSWORD=${{ secrets.DB_PASSWORD }} >> .env
-          echo DB_HOST=${{ secrets.DB_HOST }} >> .env
-          echo DB_PORT=${{ secrets.DB_PORT }} >> .env
-
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
