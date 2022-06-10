@@ -17,4 +17,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
+app.listen(3000, function () {
+  console.log(`DB port: ${process.env.DB_PORT}`);
+  console.log(`DB host: ${process.env.DB_HOST}`);
+  console.log(`DB database: ${process.env.DB_DATABASE}`);
+})
+
 module.exports = app;
