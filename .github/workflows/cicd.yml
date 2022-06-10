@@ -3,6 +3,8 @@ name: pipeline
 on:
   push:
     branches: [ "main" ]
+  pull_request:
+    branches: [ "*" ]
 
 env:
   AWS_REGION: us-east-1
@@ -13,19 +15,55 @@ env:
   CONTAINER_NAME: cadastro-pessoas
 
 jobs:
-  deploy:
-    name: deploy
-    needs: tests
+  tests:
+    name: tests
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        node-version: [16.x]
+
     steps:
-      - name: Go to the project root
+      - uses: actions/checkout@v3
+      - run: git fetch --prune --unshallow
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
         env:
           DB_DATABASE: ${{ secrets.DB_DATABASE }}
           DB_USER: ${{ secrets.DB_USER }}
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
           DB_HOST: ${{ secrets.DB_HOST }}
           DB_PORT: ${{ secrets.DB_PORT }}
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Use PostgreSQL
+        uses: harmon758/postgresql-action@v1
+        with:
+          postgresql version: '11'
+          postgresql db: 'cadastro_pessoas'
+          postgresql user: 'postgres'
+          postgresql password: 'postgres'
+
+      - name: Install dependencies
+        run: npm ci --frozen-lockfile
+
+      - name: Build
+        run: npm run build --if-present
+
+      - name: Run tests
+        run: npm test
+
+  deploy:
+    name: deploy
+    if: ${{ github.event_name != 'pull_request' && github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    needs: tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Go to the project root
         uses: actions/checkout@v3
 
       - name: Configure AWS credentials
