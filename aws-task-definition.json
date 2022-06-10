@@ -9,7 +9,7 @@
         "logDriver": "awslogs",
         "secretOptions": null,
         "options": {
-          "awslogs-group": "/ecs/cadastro-pessoas",
+          "awslogs-group": "/ecs/task-cadastro-pessoas",
           "awslogs-region": "us-east-1",
           "awslogs-stream-prefix": "ecs"
         }
@@ -34,7 +34,7 @@
       "secrets": [
         {
           "valueFrom": "arn:aws:secretsmanager:us-east-1:077915966362:secret:api-cadastro-pessoas-variaveis-ambiente-z1aKgY",
-          "name": "env"
+          "name": "variables"
         }
       ],
       "dockerSecurityOptions": null,
@@ -42,7 +42,7 @@
       "memoryReservation": 128,
       "volumesFrom": [],
       "stopTimeout": null,
-      "image": "077915966362.dkr.ecr.us-east-1.amazonaws.com/api-cadastro-pessoas:b667e3706dc24f9c87692047ddef6330d0e3bebf",
+      "image": "077915966362.dkr.ecr.us-east-1.amazonaws.com/api-cadastro-pessoas:4aa8ebbe86fb25493fa13777e4fa16a0b26c65e0",
       "startTimeout": null,
       "firelensConfiguration": null,
       "dependsOn": null,
@@ -59,7 +59,7 @@
       "dockerLabels": null,
       "systemControls": null,
       "privileged": null,
-      "name": "cadastro-pessoas"
+      "name": "container-cadastro-pessoas"
     }
   ],
   "placementConstraints": [],
@@ -69,8 +69,8 @@
     "EC2",
     "FARGATE"
   ],
-  "taskDefinitionArn": "arn:aws:ecs:us-east-1:077915966362:task-definition/cadastro-pessoas:24",
-  "family": "cadastro-pessoas",
+  "taskDefinitionArn": "arn:aws:ecs:us-east-1:077915966362:task-definition/task-cadastro-pessoas:1",
+  "family": "task-cadastro-pessoas",
   "requiresAttributes": [
     {
       "targetId": null,
@@ -138,9 +138,12 @@
     "FARGATE"
   ],
   "networkMode": "awsvpc",
-  "runtimePlatform": null,
+  "runtimePlatform": {
+    "operatingSystemFamily": "LINUX",
+    "cpuArchitecture": null
+  },
   "cpu": "256",
-  "revision": 24,
+  "revision": 1,
   "status": "ACTIVE",
   "inferenceAccelerators": null,
   "proxyConfiguration": null,
